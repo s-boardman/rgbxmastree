@@ -203,6 +203,7 @@ dev = [
     { name = "pip" },
     { name = "pre-commit" },
     { name = "pytest" },
+    { name = "rgbxmastree" },
 ]
 
 [package.metadata]
@@ -213,6 +214,7 @@ dev = [
     { name = "pip", specifier = ">=24.3.1" },
     { name = "pre-commit", specifier = ">=4.0.1" },
     { name = "pytest", specifier = ">=8.3.4" },
+    { name = "rgbxmastree", editable = "." },
 ]
 
 [[package]]

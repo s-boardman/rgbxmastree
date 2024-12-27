@@ -17,7 +17,11 @@ dev = [
     "pip>=24.3.1",
     "pre-commit>=4.0.1",
     "pytest>=8.3.4",
+    "rgbxmastree",
 ]
+
+[tool.uv.sources]
+rgbxmastree = { workspace = true }
 
 
 
