@@ -1,0 +1,16 @@
+[project]
+name = "rgbxmastree"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "gpiozero>=2.0.1",
+    "pigpio>=1.78",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.0.1",
+    "pytest>=8.3.4",
+]
