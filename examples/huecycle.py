@@ -3,7 +3,7 @@ from colorzero import Color, Hue
 
 tree = RGBXmasTree()
 
-tree.color = Color('red')
+tree.color = Color("red")
 
 try:
     while True:
