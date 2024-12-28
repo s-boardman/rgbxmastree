@@ -24,7 +24,7 @@ class Pixel:
 
     @color.setter
     def color(self, c):
-        r, g, b = c
+        r, g, b = Color(c).rgb
         self.value = (r, g, b)
 
     def on(self):
@@ -64,7 +64,7 @@ class RGBXmasTree(SourceMixin, SPIDevice):
 
     @color.setter
     def color(self, c):
-        r, g, b = c
+        r, g, b = Color(c).rgb
         self.value = ((r, g, b),) * len(self)
 
     @property
@@ -94,6 +94,22 @@ class RGBXmasTree(SourceMixin, SPIDevice):
         data = start_of_frame + pixels + end_of_frame
         self._spi.transfer(data)
         self._value = value
+
+    @property
+    def star(self):
+        return self[3]
+
+    @property
+    def baubles(self):
+        return list(set(self) - set([self.star]))
+
+    @property
+    def unlit(self):
+        return [pixel for pixel in self if pixel.value == (0, 0, 0)]
+
+    @property
+    def lit(self):
+        return [pixel for pixel in self if pixel not in self.unlit]
 
     def on(self):
         self.value = ((1, 1, 1),) * len(self)
