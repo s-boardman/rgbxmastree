@@ -36,19 +36,22 @@ class Pixel:
 
 
 class RGBXmasTree(SourceMixin, SPIDevice):
-    pin_factory = NativeFactory()
-
     def __init__(
         self,
         pixels=25,
         brightness=0.5,
         mosi_pin=12,
         clock_pin=25,
+        pin_factory=NativeFactory(),
         *args,
         **kwargs,
     ):
         super(RGBXmasTree, self).__init__(
-            mosi_pin=mosi_pin, clock_pin=clock_pin, *args, **kwargs
+            mosi_pin=mosi_pin,
+            clock_pin=clock_pin,
+            pin_factory=pin_factory,
+            *args,
+            **kwargs,
         )
         self._all = [Pixel(parent=self, index=i) for i in range(pixels)]
         self._value = [(0, 0, 0)] * pixels
@@ -128,9 +131,3 @@ class RGBXmasTree(SourceMixin, SPIDevice):
 
     def close(self):
         super(RGBXmasTree, self).close()
-
-
-if __name__ == "__main__":
-    tree = RGBXmasTree()
-
-    tree.on()
