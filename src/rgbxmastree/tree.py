@@ -1,7 +1,6 @@
 from gpiozero import SPIDevice, SourceMixin
 from colorzero import Color
 from statistics import mean
-from gpiozero.pins.native import NativeFactory
 
 
 class Pixel:
@@ -42,14 +41,12 @@ class RGBXmasTree(SourceMixin, SPIDevice):
         brightness=0.5,
         mosi_pin=12,
         clock_pin=25,
-        pin_factory=NativeFactory(),
         *args,
         **kwargs,
     ):
         super(RGBXmasTree, self).__init__(
             mosi_pin=mosi_pin,
             clock_pin=clock_pin,
-            pin_factory=pin_factory,
             *args,
             **kwargs,
         )
