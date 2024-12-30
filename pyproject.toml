@@ -10,7 +10,6 @@ readme = "README.md"
 requires-python = ">=3.9,<3.13"
 dependencies = [
     "gpiozero>=2.0.1",
-    "lgpio>=0.2.2.0",
     "typer>=0.15.1",
 ]
 
@@ -22,6 +21,12 @@ dev = [
     "pip>=24.3.1",
     "pre-commit>=4.0.1",
     "pytest>=8.3.4",
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::gpiozero.exc.PinFactoryFallback",
+    "ignore::gpiozero.exc.NativePinFactoryFallback"
 ]
 
 [tool.uv]
