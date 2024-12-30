@@ -14,9 +14,6 @@ jobs:
       name: publish
     permissions:
       id-token: write
-    strategy:
-      matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - uses: actions/checkout@v4
@@ -24,7 +21,6 @@ jobs:
       - name: Install uv and setup Python
         uses: astral-sh/setup-uv@v5
         with:
-          python-version: ${{ matrix.python-version }}
           enable-cache: true
           cache-dependency-glob: "uv.lock"
 
@@ -32,10 +28,10 @@ jobs:
         run: uv build
 
       - name: Import test (wheel)
-        run: uv run --isolated --no-project -p ${{ matrix.python-version }} --with dist/*.whl -- python -c "import rgbxmastree"
+        run: uv run --isolated --no-project --with dist/*.whl -- python -c "import rgbxmastree"
 
       - name: Import test (source distribution)
-        run: uv run --isolated --no-project -p ${{ matrix.python-version }} --with dist/*.tar.gz -- python -c "import rgbxmastree"
+        run: uv run --isolated --no-project --with dist/*.tar.gz -- python -c "import rgbxmastree"
 
       - name: Publish
         run: uv publish --trusted-publishing always
