@@ -34,4 +34,4 @@ jobs:
         run: uv run --isolated --no-project -p ${{ matrix.python-version }} --with dist/*.tar.gz -- python -c "import rgbxmastree"
 
       - name: Publish
-        run: uv publish --trusted-publishing-always
+        run: uv publish --trusted-publishing always
