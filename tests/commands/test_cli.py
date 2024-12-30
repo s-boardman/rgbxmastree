@@ -1,5 +1,12 @@
+import os
 import subprocess
 import pytest
+
+
+pytestmark = pytest.mark.skipif(
+    os.getenv("GPIOZERO_PIN_FACTORY") == "mock",
+    reason="CLI test not compatible with environments that can't access GPIO pins.",
+)
 
 
 @pytest.mark.parametrize("subcommand", ["color-shuffle"])
