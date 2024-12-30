@@ -1,32 +1,33 @@
 # rgbxmastree
 
-Code examples for the RGB Xmas Tree
+Code library, CLI, and examples for the RGB Xmas Tree produced by PiHut.
+
+This fork from the [original PiHut code](https://github.com/ThePiHut/rgbxmastree) is totally independent and very grateful to [@bennuttal](https://github.com/bennuttall) for the initial work! Any bugs and mistakes herein are my own.
 
 ## Getting started
 
-Start by downloading the xmas tree file. Open a terminal and type:
+Install via [pipx](https://pipx.pypa.io/stable/) for easy access to the commandline interface:
 
 ```bash
-wget https://bit.ly/2Lr9CT3 -O tree.py
+pipx install rgbxmastree
 ```
 
-Test the tree by running `python3 tree.py` (or running it from an IDE like Mu,
-Thonny or IDLE). All the lights should come on (white).
+You can now use the `rgbxmastree` command and subcommands to run your tree!
 
-When you write your own Python code, make sure you keep this file in the same
-folder.
-
-If you're using Raspbian Desktop, you don't need to install anything. If you're
-using Raspbian Lite, you'll need to install gpiozero with:
+To use the API in your own scripts and applications install via plain pip or your favourite project management tool:
 
 ```bash
-sudo apt install python3-gpiozero
+pip install rgbxmastree
+poetry add rgbxmastree
+uv add rgbxmastree
 ```
+
+## Initialising a tree instance
 
 Open a Python shell or IDE, import `RGBXmasTree` and initialise your tree:
 
 ```python
-from tree import RGBXmasTree
+from rgbxmastree.tree import RGBXmasTree
 
 tree = RGBXmasTree()
 ```
@@ -36,7 +37,7 @@ tree = RGBXmasTree()
 You can set the colour of all the LEDs together using RGB values (all 0-1):
 
 ```python
-from tree import RGBXmasTree
+from rgbxmastree.tree import RGBXmasTree
 
 tree = RGBXmasTree()
 
@@ -46,7 +47,7 @@ tree.color = (1, 0, 0)
 Alternatively you can use the `colorzero` library:
 
 ```python
-from tree import RGBXmasTree
+from rgbxmastree.tree import RGBXmasTree
 from colorzero import Color
 
 tree = RGBXmasTree()
@@ -57,7 +58,7 @@ tree.color = Color('red')
 You can write a loop to repeatedly cycle through red, green and blue:
 
 ```python
-from tree import RGBXmasTree
+from rgbxmastree.tree import RGBXmasTree
 from time import sleep
 
 tree = RGBXmasTree()
@@ -75,7 +76,7 @@ You can also control each LED individually, for example turn each one red, one
 at a time:
 
 ```python
-from tree import RGBXmasTree
+from rgbxmastree.tree import RGBXmasTree
 from time import sleep
 
 tree = RGBXmasTree()
@@ -97,7 +98,7 @@ You can change the brightness from 0 to 1 - the default is 0.5. You can set this
 when initialising your tree:
 
 ```python
-from tree import RGBXmasTree
+from rgbxmastree.tree import RGBXmasTree
 
 tree = RGBXmasTree(brightness=0.1)
 ```
@@ -105,7 +106,7 @@ tree = RGBXmasTree(brightness=0.1)
 Alternatively, you can change it after initialisation:
 
 ```python
-from tree import RGBXmasTree
+from rgbxmastree.tree import RGBXmasTree
 
 tree = RGBXmasTree()
 
