@@ -35,11 +35,8 @@ def _configure_logging(level):
 
     """
     handler = logging.StreamHandler()
-    logging_format = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
-    logging.basicConfig(level=level)
-    handler.setFormatter(logging_format)
+    logging_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    logging.basicConfig(level=level, format=logging_format, handlers=[handler])
 
 
 app = typer.Typer()
