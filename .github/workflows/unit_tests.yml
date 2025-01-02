@@ -1,6 +1,12 @@
 name: Run unit tests
 
-on: [pull_request,push]
+on:
+  push:
+      branches:
+      - master
+  pull_request:
+      branches:
+      - "**"
 
 jobs:
   build:
@@ -8,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.12"]
     env:
       GPIOZERO_PIN_FACTORY: "mock"
 
