@@ -31,7 +31,6 @@ def run_session(tree, duration_hours):
         logger.debug(f"Setting bauble {bauble.index} to {colour}.")
         bauble.color = colour
         sleep(interval_seconds)
-    tree.off()
 
 
 def _configure_logging(level):
@@ -85,6 +84,7 @@ def color_shuffle(
         for count, session in enumerate(range(sessions), start=1):
             logging.debug(f"Starting session {count} of {sessions}.")
             run_session(tree, duration)
+            tree.off()
             logging.debug(f"Session {count} finished.")
     finally:
         tree.off()
