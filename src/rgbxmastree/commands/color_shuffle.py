@@ -11,11 +11,11 @@ logger = logging.getLogger("RGBXmasTree: Color Shuffle")
 
 def run_session(tree, duration_hours):
     """Run a lighting session.
-    
+
     Args:
         tree: RGBXmasTree instance.
         duration_hours float: Length of the session to run in hours.
-    
+
     """
     duration_seconds = duration_hours * 60 * 60
     interval_count = len(tree.baubles) + 1

@@ -52,6 +52,7 @@ def test_unlit_baubles(sample_tree):
 
     assert len(sample_tree.unlit) == 0
 
+
 @pytest.mark.parametrize("session_count", [1, 2])
 def test_session_count(sample_tree, session_count):
     with patch(
