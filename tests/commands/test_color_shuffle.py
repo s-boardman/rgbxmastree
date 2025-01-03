@@ -34,6 +34,7 @@ def test_session_duration(sample_tree, duration_hours):
     # Extra initial sleep and extra final sleep
     expected_sleep_calls = len(sample_tree.baubles) + 2
     assert mock_sleep.call_count == expected_sleep_calls
+    assert len(tree.unlit) == 0
 
 
 def test_bauble_colors(sample_tree):
@@ -50,3 +51,15 @@ def test_unlit_baubles(sample_tree):
         run_session(sample_tree, 1)
 
     assert len(sample_tree.unlit) == 0
+
+@pytest.mark.parametrize("session_count", [1, 2])
+def test_session_count(sample_tree, session_count):
+    with patch(
+        "rgbxmastree.commands.color_shuffle.sleep", return_value=None
+    ) as mock_sleep:
+        for count, session in enumerate(range(session_count), start=1):
+            run_session(sample_tree, 0.5)  # Run session with 2 hours duration
+            tree.off()
+    # Calculate number of sleeps expected
+    expected_sleep_calls = session_count * (len(sample_tree.baubles) + 2)
+    assert mock_sleep.call_count == expected_sleep_calls
