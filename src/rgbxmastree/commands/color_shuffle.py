@@ -10,6 +10,13 @@ logger = logging.getLogger("RGBXmasTree: Color Shuffle")
 
 
 def run_session(tree, duration_hours):
+    """Run a lighting session.
+
+    Args:
+        tree: RGBXmasTree instance.
+        duration_hours float: Length of the session to run in hours.
+
+    """
     duration_seconds = duration_hours * 60 * 60
     interval_count = len(tree.baubles) + 1
     interval_seconds = duration_seconds / interval_count
@@ -77,6 +84,7 @@ def color_shuffle(
         for count, session in enumerate(range(sessions), start=1):
             logging.debug(f"Starting session {count} of {sessions}.")
             run_session(tree, duration)
+            tree.off()
             logging.debug(f"Session {count} finished.")
     finally:
         tree.off()
