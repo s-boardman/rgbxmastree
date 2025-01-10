@@ -9,12 +9,13 @@ from rgbxmastree.tree import RGBXmasTree
 logger = logging.getLogger("RGBXmasTree: Color Shuffle")
 
 
-def run_session(tree, duration_hours):
+def run_session(tree, duration_hours, turn_off=True):
     """Run a lighting session.
 
     Args:
         tree: RGBXmasTree instance.
         duration_hours float: Length of the session to run in hours.
+        turn_off bool: Turn off tree at end of the session. Default: True
 
     """
     duration_seconds = duration_hours * 60 * 60
@@ -31,6 +32,8 @@ def run_session(tree, duration_hours):
         logger.debug(f"Setting bauble {bauble.index} to {colour}.")
         bauble.color = colour
         sleep(interval_seconds)
+    if turn_off:
+        tree.off()
 
 
 def _configure_logging(level):
@@ -84,7 +87,6 @@ def color_shuffle(
         for count, session in enumerate(range(sessions), start=1):
             logging.debug(f"Starting session {count} of {sessions}.")
             run_session(tree, duration)
-            tree.off()
             logging.debug(f"Session {count} finished.")
     finally:
         tree.off()
