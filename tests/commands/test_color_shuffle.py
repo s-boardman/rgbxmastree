@@ -30,7 +30,7 @@ def test_session_duration(sample_tree, duration_hours):
     with patch(
         "rgbxmastree.commands.color_shuffle.sleep", return_value=None
     ) as mock_sleep:
-        run_session(sample_tree, duration_hours)  # Run session with 2 hours duration
+        run_session(sample_tree, duration_hours, turn_off=False)
     # Extra initial sleep and extra final sleep
     expected_sleep_calls = len(sample_tree.baubles) + 2
     assert mock_sleep.call_count == expected_sleep_calls
@@ -40,17 +40,25 @@ def test_session_duration(sample_tree, duration_hours):
 def test_bauble_colors(sample_tree):
     """Tests if baubles are assigned random colors."""
     with patch("rgbxmastree.commands.color_shuffle.sleep", return_value=None):
-        run_session(sample_tree, 1)
+        run_session(sample_tree, 1, turn_off=False)
 
     assert all(bauble.color for bauble in sample_tree.baubles)
 
 
-def test_unlit_baubles(sample_tree):
-    """Tests if the unlit baubles list is correctly updated."""
+def test_turn_off_False(sample_tree):
+    """Tests if the tree isn't turned off."""
+    with patch("rgbxmastree.commands.color_shuffle.sleep", return_value=None):
+        run_session(sample_tree, 1, False)
+
+    assert len(sample_tree.unlit) == 0
+
+
+def test_turn_off_True(sample_tree):
+    """Tests if the tree is turned off by default."""
     with patch("rgbxmastree.commands.color_shuffle.sleep", return_value=None):
         run_session(sample_tree, 1)
 
-    assert len(sample_tree.unlit) == 0
+    assert len(sample_tree.lit) == 0
 
 
 @pytest.mark.parametrize("session_count", [1, 2])
@@ -59,8 +67,8 @@ def test_session_count(sample_tree, session_count):
         "rgbxmastree.commands.color_shuffle.sleep", return_value=None
     ) as mock_sleep:
         for count, session in enumerate(range(session_count), start=1):
-            run_session(sample_tree, 0.5)  # Run session with 2 hours duration
-            sample_tree.off()
+            run_session(sample_tree, 0.5)
+            assert len(sample_tree.lit) == 0
     # Calculate number of sleeps expected
     expected_sleep_calls = session_count * (len(sample_tree.baubles) + 2)
     assert mock_sleep.call_count == expected_sleep_calls
